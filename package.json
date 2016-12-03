@@ -1,0 +1,27 @@
+{
+  "name": "passcrak",
+  "version": "1.0.0",
+  "description": "Password security tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha \"**/*.spec.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khanhhua/passcrak.git"
+  },
+  "keywords": [
+    "security",
+    "password",
+    "crack"
+  ],
+  "author": "Khanh Hua",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/khanhhua/passcrak/issues"
+  },
+  "homepage": "https://github.com/khanhhua/passcrak#readme",
+  "dependencies": {
+    "yargs": "^6.5.0"
+  }
+}
