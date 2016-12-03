@@ -2,19 +2,20 @@
 /**
  *
  */
+var debug = require('debug')('main');
 var yargs = require('yargs');
 
 yargs
   .usage('passcrak <command> [options]')
   .command('search [password]', 'Search for a password', {
-    // password: {
-    //   default: ''
-    // }
+    password: {
+      type: 'string'
+    }
   }, search)
   .command('verify [password]', 'Verify a password', {
-    // password: {
-    //   default: ''
-    // }
+    password: {
+      type: 'string'
+    }
   }, verify)
   .help()
   .argv;
@@ -43,10 +44,10 @@ function search (argv) {
   }
 
   function exec (password) {
-    console.log('Executing search "' + password + '"');
+    debug('Executing search "' + password + '"');
 
-    rawsearch.search(password, null).then(function (result) {
-      console.log('RESULT:', result);
+    rawsearch.search(password.toString(), null).then(function (result) {
+      process.stdout.write(password + (result?' FOUND\n':'NOT FOUND\n'));
     });
   }
 }

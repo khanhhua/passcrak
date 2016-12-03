@@ -21,7 +21,17 @@
     "url": "https://github.com/khanhhua/passcrak/issues"
   },
   "homepage": "https://github.com/khanhhua/passcrak#readme",
+  "yargs": {
+    "short-option-groups": true,
+    "camel-case-expansion": true,
+    "dot-notation": true,
+    "parse-numbers": false,
+    "boolean-negation": true
+  },
   "dependencies": {
     "yargs": "^6.5.0"
+  },
+  "devDependencies": {
+    "debug": "^2.3.3"
   }
 }
