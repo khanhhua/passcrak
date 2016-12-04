@@ -12,11 +12,11 @@ yargs
       type: 'string'
     }
   }, search)
-  .command('verify [password]', 'Verify a password', {
-    password: {
+  .command('reverse [encrypted]', 'Reverse an encrypted password to its original', {
+    encrypted: {
       type: 'string'
     }
-  }, verify)
+  }, reverse)
   .help()
   .argv;
 
@@ -52,7 +52,40 @@ function search (argv) {
   }
 }
 
-function verify (argv) {
-  var password = argv.password;
-  console.log('Executing verification "' + password + '"');
+function reverse (argv) {
+  var hashsearch = require('./lib/hashsearch');
+  var encrypted = argv.encrypted;
+
+  if (encrypted) {
+    exec(encrypted);
+  }
+  else if (!process.stdin.isTTY) {
+    process.stdin.on('readable', function () {
+      var chunk = process.stdin.read();
+      if (!chunk) {
+        return;
+      }
+
+      var encrypted = chunk.toString('utf8').trim();
+
+      exec(encrypted);
+    });
+  }
+  else {
+    process.exit(1);
+  }
+
+  function exec (encrypted) {
+    debug('Executing reverse "' + encrypted + '"');
+
+    hashsearch.search(encrypted.toString(), null).then(function (result) {
+      var decodedPassword = result.password;
+      if (decodedPassword) {
+        process.stdout.write(decodedPassword + ' FOUND\n');
+      }
+      else {
+        process.stdout.write('NOT FOUND\n');
+      }
+    });
+  }
 }
